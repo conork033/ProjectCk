@@ -1,0 +1,47 @@
+INSTALLED TELEGRAM LIBRARY
+
+apt-get install -y libreadline-dev libconfig-dev libssl-dev 
+sudo apt-get install -y lua5.2 liblua5.2-dev
+sudo apt-get install -y libevent-dev libjansson-dev libpython-dev libssl1.0-dev? make git
+
+cd ~
+git clone --recursive https://github.com/LucentW/tg.git
+
+
+MODIFIED SOURCE FILES
+nano ~/tg/tgl/mtproto-utils.c
+
+tatic unsigned long long BN2ull (TGLC_bn *b) {
+  if (sizeof (unsigned long) == 8) {
+    return TGLC_bn_get_word (b);
+  } else if (sizeof (unsigned long long) == 8) {
+    assert (0); // As long as nobody ever uses this code, assume it is broken.
+    unsigned long long tmp;
+    /* Here be dragons, but it should be okay due to be64toh */
+    TGLC_bn_bn2bin (b, (unsigned char *) &tmp);
+    return be64toh (tmp);
+  } else {
+    assert (0);
+  }
+}
+
+*changed assert(0)
+to //assert()
+
+
+SAVED CHANGES
+
+
+cd ~/tg
+./configure
+make
+
+
+Registered My phone on telegram,Once I entered my number on th cli
+I was allowed to message telgram contacts from th cli
+
+WROTE A SCRIPT FOR MESSAGING
+#!/bin/bash
+tgpath=/home/pi/tg
+cd ${tgpath}
+(sleep 3; echo "msg $1 $2"; echo "safe_quit") | ${tgpath}/bin/telegram-cli -k tg-server.pub -W

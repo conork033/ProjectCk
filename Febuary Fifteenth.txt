@@ -1,0 +1,24 @@
+UPDATE PACKAGES
+sudo apt-get update
+sudo apt-get upgrade
+
+UPDATE FIRMWARE
+sudo rpi-update
+
+PREPARE PI FOR YOWSUP LIBRARY:
+sudo apt-get install python-dateutil
+sudo apt-get install python-setuptools
+sudo apt-get install python-dev
+sudo apt-get install libevent-dev
+sudo apt-get install ncurses-dev
+
+DOWNLOAD LIBRARY:
+git clone git://github.com/tgalal/yowsup.git
+
+NAVIGATE YOWSUP FOLDER:
+cd yowsup
+
+INSTALL LIBRARY:
+sudo python setup.py install
+
+
